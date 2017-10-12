@@ -38,14 +38,13 @@ app.get('/', function homepage(req, res) {
 app.get('/api', function api_index(req, res) {
   // TODO: Document all your api endpoints below
   res.json({
-    woops_i_has_forgot_to_document_all_my_endpoints: false,
     message: "Welcome to my personal api! Here's what you need to know!",
     documentation_url: "https://github.com/Kelrynn/express-personal-api",
     base_url: "https://morning-tundra-57382.herokuapp.com/",
     endpoints: [
-      {method: "GET", path: "/api", description: "Describes all available endpoints"},
-      {method: "GET", path: "/api/profile", description: "Data about me"},
-      {method: "GET", path: "/api/pets", description: "GETs all pets"},
+      {method: "GET", path: "/api", description: "Describes all available endpoints"},//done
+      {method: "GET", path: "/api/profile", description: "Data about me"},//done
+      {method: "GET", path: "/api/pets", description: "GETs all pets"},//done
       {method: "POST", path: "/api/pets", description: "creates a new pet"},
       {method: "PUT", path: "/api/pets/:id", description: "Edits a Pet"},
       {method: "DELETE", path: "/api/pets/:id", description: "creates a new pet"}
@@ -69,8 +68,17 @@ app.get('/api/profile', function(req, res) {
 
 app.get('/api/pets', function(req, res) {
   db.Pets.find({}, function(err, pets){
+    if(err) throw err;
     res.json({pets});
   });
+});
+
+app.post('/api/pets', function(req, res) {
+  db.Pets.create(req.body, function(err, pet) {
+    if(err) throw err;
+    console.log("Pet created");
+    res.json(pet);
+  })
 });
 
 /**********
