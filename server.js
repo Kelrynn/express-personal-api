@@ -68,7 +68,6 @@ app.get('/api/profile', function(req, res) {
   var compareDate = new Date();
   profile.days_old = compareDate.getTime() - profile.days_old.getTime();
   profile.days_old = Math.round(profile.days_old / 86400000);
-  console.log(compareDate.getHours());
   if (compareDate.getHours() > 8 && compareDate.getHours() < 22){
     profile.is_awake = true;
   }
