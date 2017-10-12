@@ -60,8 +60,20 @@ app.get('/api/profile', function(req, res) {
     github_link: "https://github.com/Kelrynn/express-personal-api",
     github_profile_image: "https://avatars3.githubusercontent.com/u/31755495?v=4&s=460",
     current_city: "Denver",
+    days_old: new Date('12/22/1995'),
+    is_awake: false,
+    is_hungry: false,
     pets: []
   };
+  var compareDate = new Date();
+  profile.days_old = compareDate.getTime() - profile.days_old.getTime();
+  profile.days_old = Math.round(profile.days_old / 86400000);
+  if (compareDate.getHours() > 8 && compareDate.getHours() < 22){
+    profile.is_awake = true;
+  }
+  if ((compareDate.getHours() > 12 && compareDate.getHours() < 14) || (compareDate.getHours() > 19 && compareDate.getHours() < 21)){
+    profile.is_hungry = true;
+  }
   db.Pets.find({}, function(err, pets){
     profile.pets = pets;
     res.json(profile);
