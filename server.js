@@ -53,7 +53,7 @@ app.get('/api', function api_index(req, res) {
   })
 });
 
-// GET Profile JSON (user data)
+// GET Profile (user data)
 app.get('/api/profile', function(req, res) {
   let profile = {
     name: "Cameron Castells",
@@ -67,7 +67,7 @@ app.get('/api/profile', function(req, res) {
     res.json(profile);
   });
 });
-//GET all pets in JSON 
+//GET all pets 
 app.get('/api/pets', function(req, res) {
   db.Pets.find({}, function(err, pets){
     if(err) throw err;
